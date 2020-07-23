@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import Delete from "../Delete/Delete";
-import MonstersCard from "../MonstersCard/MonstersCard";
-import "./MonsterTable.scss"
+import React from 'react';
+import MonsterCard from '../MonsterCard/MonsterCard';
+import Delete from '../delete/Delete';
+import './monsterTable.scss';
+import { Link } from 'react-router-dom';
+function MonsterTable({ filteredMonsters, handleDelete }) {
 
-export class MonsterTable extends Component {
-    render() {
-        const { hadleDelete, filteredMonsters } = this.props;
-        return (
-            <div class="monster-grid">
-                {filteredMonsters.map(monters => (
-                    <div key={monters.id}>
-                        <MonstersCard monters={monters} name={"ali"} />
-                        <Delete hadleDelete={() => hadleDelete(monters.id)} />
-                    </div>
-                ))}
-            </div>
-        )
-    }
+    return (
+        <div className='monster-grid'>
+            {filteredMonsters.map((item) => (
+                <div key={item.id}>
+                    <Link to={`/monsters/${item.id}`}>
+                        <MonsterCard monster={item} />
+                    </Link>
+                    <Delete handleDelete={handleDelete} id={item.id} />
+                </div>
+            ))}
+        </div>
+    )
 }
 
-export default MonsterTable
+export default MonsterTable;

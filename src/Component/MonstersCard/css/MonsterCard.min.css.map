@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,cAAc,AAAC,CACX,gBAAgB,CAAE,qBAAwB,CAC1C,MAAM,CAAE,eAAe,CACvB,OAAO,CAAE,IAAI,CACb,UAAU,CAAE,MAAM,CACrB",
-    "sources": [
-        "../MonsterCard.scss"
-    ],
-    "names": [],
-    "file": "MonsterCard.min.css"
-}

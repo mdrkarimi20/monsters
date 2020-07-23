@@ -1,47 +1,45 @@
-import React, { Component } from 'react';
-import Form from "../Form/Form";
-import "./MonsterContainer.scss";
+import React, { useState, useEffect } from 'react';
 import MonsterTable from '../MonsterTable/MonsterTable';
-import Search from "../Search/Search"
+import Search from '../Search/Search';
+import './monster-container.scss';
+export default function MonsterContainer() {
 
-class MonsterContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            monters: [],
-            search: "",
-        }
-    }
+    const [monsters, setMonsters] = useState([]);
+    const [search, setSearch] = useState('');
+    const [showForm, setShowForm] = useState(false);
 
-    hadleDelete = (id) => {
-        const { monters } = this.state;
-        this.setState({ monters: monters.filter(monters => monters.id !== id) });
-    }
-
-    componentDidMount() {
+    const getData = () => {
+        console.log('1')
         fetch("https://jsonplaceholder.typicode.com/users").then(res => res.json()).then(data => {
-            this.setState({ monters: data })
+            setMonsters(data);
+            console.log(data);
         })
     }
-    handleChange = (event) => {
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
-    }
-    handleAdd = (obj) => {
-        this.setState({ monters: [...this.state.monters, obj] });
-    }
 
-    render() {
-        const { monters, search } = this.state;
-        let filteredMonsters = monters.filter(item => item.name.toLowerCase().startsWith(search.toLowerCase()));
-        return (
-            <div className="grid-container">
-                <Search handleChange={this.handleChange} search={search} />
-                <Form handleAdd={this.handleAdd} />
-                <MonsterTable filteredMonsters={filteredMonsters} hadleDelete={this.hadleDelete} />
-            </div>
-        );
+    useEffect(() => { getData(); }, []);
+
+    const handleDelete = (id) => {
+        setMonsters(monsters.filter(monster => monster.id !== id));
     }
+    const handleChange = (event) => {
+        const { value } = event.target;
+        setSearch(value);
+    }
+    // const handleAddMonster = (obj) => {
+    //     setMonsters([obj, ...monsters])
+    // }
+    // const toggleForm = () => {
+    //     setShowForm(!showForm)
+    // }
+    let filteredMonsters = monsters.filter(item => item.name.toLowerCase().startsWith(search.toLowerCase()))
+    return (
+        <div className='monster-container'>
+            <Search handleChange={handleChange} search={search} />
+            {/* <button onClick={toggleForm}> {showForm ? "hide form" : "show form"} </button>
+            {
+                showForm ? <Form handleAdd={handleAddMonster} /> : null
+            } */}
+            <MonsterTable filteredMonsters={filteredMonsters} handleDelete={handleDelete} />
+        </div>
+    )
 }
-
-export default MonsterContainer;

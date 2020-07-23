@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,aAAa,AAAC,CACV,OAAO,CAAE,IAAI,CACb,qBAAqB,CAAE,mBAAmB,CAC1C,OAAO,CAAE,IAAI,CAChB",
-    "sources": [
-        "../MonsterTable.scss"
-    ],
-    "names": [],
-    "file": "MonsterTable.min.css"
-}

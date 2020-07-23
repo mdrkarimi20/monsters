@@ -1,41 +1,37 @@
-import React, { Component } from 'react'
-
-export class Form extends Component {
-
-    state = {
-        name: "",
-        email: ""
-    }
-
-    handleChange = (event) => {
+import React, { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom"
+export default function Form(props) {
+    const [user, setUser] = useState({
+        name: '',
+        email: ''
+    })
+    let history = useHistory();
+    const handleChange = (event) => {
         const { name, value } = event.target;
-        this.setState({ [name]: value });
+        setUser({ ...user, [name]: value });
     }
-
-    handleClear = () => {
-        this.setState({ name: "", email: "" })
+    const handleClear = () => {
+        setUser({ name: '', email: '' })
     }
-
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        const { name, email } = this.state;
-        const newMonsters = { name, email }
-        this.props.handleAdd(newMonsters);
+        history.push("/monsters")
+        // handleAdd({ ...user, id: 12 });
+        // axios.post('https://jsonplaceholder.typicode.com/users', user).then(res => {
+        //     handleAdd(res.data);
+        // })
+        // .catch(err => console.log(err))
     }
+    const { name, email } = user;
+    return (
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="name">name:</label>
+            <input type="text" name='name' id='name' onChange={handleChange} value={name} />
+            <label htmlFor="email">email:</label>
+            <input type="email" name='email' id='email' onChange={handleChange} value={email} />
+            <button type="submit">save</button>
+            <button type="button" onClick={handleClear}>clear</button>
+        </form>
+    )
 
-    render() {
-        const { name, email } = this.state;
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label htmlFor="name">name:</label>
-                <input type="text" name="name" id="name" onChange={this.handleChange} value={name} />
-                <label htmlFor="email"></label>
-                <input type="text" name="email" id="email" onChange={this.handleChange} value={email} />
-                <button type="submit">save</button>
-                <button type="button" onClick={this.handleClear}>clear</button>
-            </form>
-        )
-    }
 }
-
-export default Form

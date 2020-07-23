@@ -1,0 +1,7 @@
+1. git remote add origin https://github.com/mdrkarimi20/monsters.git
+2. yarn add gh-pages -D
+3. "homepage": "https://mdrkarimi20.github.io/monsters"
+"predeploy": "yarn build",
+"deploy": "gh-pages -d build"
+4. yarn deploy
+5. git......
